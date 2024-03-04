@@ -2,7 +2,7 @@
 
 A new Flutter project.
 
-#Pewview
+#Preview
 https://prvexpensetracker.netlify.app/
 ## Getting Started
 
