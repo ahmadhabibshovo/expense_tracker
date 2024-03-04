@@ -31,6 +31,8 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Container(
@@ -40,7 +42,7 @@ class Chart extends StatelessWidget {
         horizontal: 8,
       ),
       width: double.infinity,
-      height: 180,
+      height: height < width ? double.infinity : 180,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
         gradient: LinearGradient(

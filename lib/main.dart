@@ -1,13 +1,13 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:expense_tracker/config/theme/theme_data.dart';
 import 'package:expense_tracker/expense.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 
 void main() {
   runApp(
     DevicePreview(
-      enabled: !kReleaseMode,
+      enabled: true,
       builder: (context) => MyApp(), // Wrap your app
     ),
   );
@@ -20,6 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: lightTheme.copyWith(
         cardTheme: CardTheme(

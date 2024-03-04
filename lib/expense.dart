@@ -27,6 +27,7 @@ class _ExpensesState extends State<Expenses> {
   ];
   _openAddExpenseOverly() {
     showModalBottomSheet(
+        useSafeArea: true,
         isScrollControlled: true,
         context: context,
         builder: (ctx) {
@@ -65,6 +66,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text("Flutter Expense Tracker"),
@@ -78,18 +80,28 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: SafeArea(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Chart(expenses: _registeredExpenses),
-              Expanded(
-                  child: ExpensesList(
-                expenses: _registeredExpenses,
-                onRemoveExpense: _removeExpense,
-              ))
-            ],
-          ),
-        ),
+            child: width < 600
+                ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Chart(expenses: _registeredExpenses),
+                      Expanded(
+                          child: ExpensesList(
+                        expenses: _registeredExpenses,
+                        onRemoveExpense: _removeExpense,
+                      ))
+                    ],
+                  )
+                : Row(
+                    children: [
+                      Expanded(child: Chart(expenses: _registeredExpenses)),
+                      Expanded(
+                          child: ExpensesList(
+                        expenses: _registeredExpenses,
+                        onRemoveExpense: _removeExpense,
+                      ))
+                    ],
+                  )),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -98,8 +110,9 @@ class _ExpensesState extends State<Expenses> {
         child: Icon(Icons.add),
         shape: CircleBorder(),
       ),
-      floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerFloat, // Center the FAB
+      floatingActionButtonLocation: width < 600
+          ? FloatingActionButtonLocation.centerFloat
+          : FloatingActionButtonLocation.endFloat, // Center the FAB
     );
   }
 }
